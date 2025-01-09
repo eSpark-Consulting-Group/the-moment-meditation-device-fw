@@ -1,0 +1,8 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "C:\\Users\\Ash\\esp\\v4.4.6\\esp-idf",
+    "idf.toolsPathWin": "C:\\Users\\Ash\\.espressif",
+    "files.associations": {
+        "*.ipp": "c"
+    }
+}
