@@ -199,13 +199,13 @@ static void bt_app_gap_cb(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *pa
 
 void app_main(void)
 {
-    xTaskCreatePinnedToCore(guiTask, "gui", 4096 * 2, NULL, 0, NULL, 1);
+    // xTaskCreatePinnedToCore(guiTask, "gui", 4096 * 2, NULL, 0, NULL, 0);
     // return;
     audio_pipeline_handle_t pipeline;
     audio_element_handle_t fatfs_stream_reader, bt_stream_writer, mp3_decoder;
 
-    esp_log_level_set("*", ESP_LOG_WARN);
-    esp_log_level_set(TAG, ESP_LOG_INFO);
+    esp_log_level_set("*", ESP_LOG_ERROR);
+    esp_log_level_set(TAG, ESP_LOG_ERROR);
 
     esp_err_t err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES)
@@ -258,7 +258,7 @@ void app_main(void)
     esp_bt_gap_register_callback(bt_app_gap_cb);
 
     const char *remote_name = NULL;
-    remote_name = CONFIG_BT_REMOTE_NAME;
+    remote_name = "RONIN (R-140)"; //CONFIG_BT_REMOTE_NAME;
     if (remote_name)
     {
         memcpy(&remote_bt_device_name, remote_name, strlen(remote_name) + 1);
@@ -487,7 +487,7 @@ static void guiTask(void *pvParameter)
     while (1)
     {
         /* Delay 1 tick (assumes FreeRTOS tick is 10ms */
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(3));
 
         /* Try to take the semaphore, call lvgl related function on success */
         if (pdTRUE == xSemaphoreTake(xGuiSemaphore, portMAX_DELAY))
